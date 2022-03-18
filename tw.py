@@ -8,10 +8,10 @@ local_timezone = pytz.timezone('America/Caracas')
 #load_dotenv('/home/ghost/Desktop/proyectos/tw/.env')
 load_dotenv('.env_tw')
 
-API_KEY='DJahAj7JknAaTJwYKWpMpEcNu'
-API_SECRET_KEY='J8haVuXvGQ0CZ88PHirrDy3eWPm7jIG0W3Phj8Ba0xE754MhdD'
-ACCESS_TOKEN='1416223413052530696-YEza71GQ3gdULb0FZfZb5Czcz1C2tU'
-ACCESS_TOKEN_SECRET='kwzyXSqEhfFXCd39YBppQMBCwDXeC3oLMmacMtDuOawdl'
+API_KEY = os.getenv('API_Key')
+API_SECRET_KEY = os.getenv('APIKeySecret')
+ACCESS_TOKEN = os.getenv('AccessToken')
+ACCESS_TOKEN_SECRET = os.getenv('AccessTokenSecret')
 
 auth = tweepy.OAuthHandler(API_KEY,API_SECRET_KEY)
 auth.set_access_token(ACCESS_TOKEN,ACCESS_TOKEN_SECRET)
@@ -27,7 +27,7 @@ except:
 
 
 # Dirección del usuario twitter @user
-target='carlosdmesag'
+target='evoespueblo'
 
 print('El usuario a analizar: ',target)
 user = api.get_user(screen_name=target)
@@ -58,7 +58,7 @@ historial = []
 for status in tweepy.Cursor(api.user_timeline,screen_name=target,tweet_mode="extended",count=100).items():
     historial.append(status)
 
-with open(target+'_historial.csv','w',newline='',encoding='utf-8') as file:
+with open(target+'.csv','w',newline='',encoding='utf-8') as file:
    writer = csv.writer(file)
    writer.writerow(['#user','date','text'])
    for tuit in historial:
@@ -70,4 +70,4 @@ with open(target+'_historial.csv','w',newline='',encoding='utf-8') as file:
 
 
 
-
+print('Finalizado! Se recopiló '+len(historial)+' tuits')
