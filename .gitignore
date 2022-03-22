@@ -1,2 +1,3 @@
-/app/*
-.env_tw
+/app/.env_tw
+/app/MonoLisa.ttf
+/app/resultados/
