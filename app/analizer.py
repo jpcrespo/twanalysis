@@ -10,7 +10,6 @@
 
 '''
 
-from turtle import color
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -22,7 +21,7 @@ import locale, os
 
 def frec_tw(target):
 
-   locale.setlocale(locale.LC_TIME,'esp')
+   #locale.setlocale(locale.LC_TIME,'esp')
    # Leer un csv
    dataset = pd.read_csv('resultados/'+target+'.csv')
    #recupera los valores de interes (fechas)

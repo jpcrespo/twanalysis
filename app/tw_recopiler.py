@@ -13,8 +13,8 @@ def recopilar(target):
     #no hay bolivia :( pero es igual a Caracas
     local_timezone = pytz.timezone('America/Caracas')
 
-    #load_dotenv('/home/ghost/Desktop/proyectos/tw/.env')
-    load_dotenv('.env_tw')
+    load_dotenv('/home/ghost/Desktop/proyectos/twanalizer/.env_tw')
+    #load_dotenv('.env_tw')
 
     API_KEY = os.getenv('API_Key')
     API_SECRET_KEY = os.getenv('API_SECRET_KEY')
