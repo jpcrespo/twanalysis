@@ -1,0 +1,12 @@
+User details:
+id_str: 465570594
+name: Jeanine Añez Chavez
+screen_name: JeanineAnez
+location: Bolivia
+url: https://t.co/ESH129ko62
+description: Ex Presidenta constitucional de Bolivia. Orgullosa mamá de Carolina y José Armando. Presa Política.
+protected: False
+verified: True
+followers_count: 370601
+friends_count: 478
+listed_count: 552

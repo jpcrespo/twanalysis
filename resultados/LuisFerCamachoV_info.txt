@@ -1,0 +1,17 @@
+User details:
+id_str: 1133033369850339328
+name: Luis Fernando Camacho
+screen_name: LuisFerCamachoV
+location: Bolivia
+url: https://t.co/bfss0QaM6p
+description: Padre.
+Abogado.
+Gobernador del departamento de Santa Cruz.
+Líder de Creemos.
+Ex-presidente del Comité Pro Santa Cruz.
+#ElFuturoIniciaHoy
+protected: False
+verified: False
+followers_count: 243241
+friends_count: 87
+listed_count: 290

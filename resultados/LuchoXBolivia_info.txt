@@ -1,0 +1,12 @@
+User details:
+id_str: 1222273871488917504
+name: Luis Alberto Arce Catacora (Lucho Arce)
+screen_name: LuchoXBolivia
+location: La Paz
+url: None
+description: Presidente Constitucional del Estado Plurinacional de Bolivia. #EstamosSaliendoAdelante
+protected: False
+verified: True
+followers_count: 190583
+friends_count: 62
+listed_count: 590

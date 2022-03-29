@@ -1,0 +1,13 @@
+User details:
+id_str: 1490874530012803076
+name: Libertad 🐍
+screen_name: EsaLibertaria
+location: La utopía 
+url: None
+description: Los malos nunca ganan. NUNCA.
+#BoliviaLibertaria
+protected: False
+verified: False
+followers_count: 279
+friends_count: 296
+listed_count: 0
