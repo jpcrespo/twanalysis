@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 import os, tweepy, csv, pytz
 from datetime import datetime
 
-
 load_dotenv('.env_tw')
 
 API_KEY = os.getenv('API_Key')
@@ -29,6 +28,11 @@ except:
     print("No se logra iniciar sesión, ERROR!")
 
 def recopilar(target):
+    path = 'resultados/'+target
+
+    if not os.path.isdir(path):
+        os.mkdir(path)
+
     #no hay bolivia :( pero es igual a Caracas
     print('Configurando zona horaria para Bolivia')
     local_timezone = pytz.timezone('America/Caracas')
@@ -36,7 +40,7 @@ def recopilar(target):
     # Dirección del usuario twitter @user
     print('El usuario a analizar: @'+target)
     user = api.get_user(screen_name=target)
-    with open('resultados/'+target+'_info.txt','w',encoding='utf-8') as txt:
+    with open(path+'/info_user.txt','w',encoding='utf-8') as txt:
         txt.write("User details:\n")
         #txt.write('id: ' + user.id)
         txt.write('id_str: '+user.id_str+'\n')
@@ -61,13 +65,13 @@ def recopilar(target):
 
         for status in tweepy.Cursor(api.user_timeline,screen_name=target,tweet_mode="extended",count=100).items():
             historial.append(status)
-
-    with open('resultados/'+target+'.csv','w',newline='',encoding='utf-8') as file:
-        writer = csv.writer(file)
-        writer.writerow(['#id_tuit','date','text'])
-        for tuit in historial:
-            dtime = datetime.strptime(tuit._json['created_at'],'%a %b %d %H:%M:%S %z %Y')
-            writer.writerow([tuit._json['id_str'],dtime.astimezone(local_timezone),tuit._json['full_text'].replace('\n',' ')])
-    print('Finalizado! Se recopiló '+str(len(historial))+' tuits')
-
-
+        
+        with open(path+'/recopile_tw.csv','w',newline='',encoding='utf-8') as file:
+            writer = csv.writer(file)
+            writer.writerow(['#date','id_tuit','text'])
+            for tuit in historial:
+                pass
+                dtime = datetime.strptime(tuit._json['created_at'],'%a %b %d %H:%M:%S %z %Y')
+                writer.writerow([dtime.astimezone(local_timezone),tuit._json['id_str'],tuit._json['full_text'].replace('\n',' ')])
+        print('Finalizado! Se recopiló '+str(len(historial))+' tuits')
+\

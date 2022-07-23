@@ -39,14 +39,17 @@ def tokenizar(mensaje):
         if not word == '':
             clean.append(word)
     
-    stopword = ['pasa','solo','como','sobre','esa','vez','cada',"algo","para","este","algún",'pero',"de",'alla','aún','cual','cuan','cuando','desde','donde','muy','otro','otra','pues','sino','tus','mis','este','esté','esta']
+    stopword = ['pasa','solo','como','sobre','esa','vez','cada',
+    "algo","para","este","algún",'pero',"de",'alla','aún',
+    'cual','cuan','cuando','desde','donde','muy','otro',
+    'otra','pues','sino','tus','mis','este','esté','esta',
+    'que','una','por','con','los','las','mas']
 
     aux1 = [word for word in clean if len(word)>3]
     aux2 = []
     for x in aux1:
         if not (x in stopword):
             aux2.append(x)
-
     return aux2
 
 
@@ -55,26 +58,22 @@ def date_historial(target):
     la cantidad promedio por tuit y finalmente las palabras y la cantidad de 
     veces usada
     '''
-    dataset = pd.read_csv('resultados/'+target+'.csv')
+    dataset = pd.read_csv('resultados/'+target+'/recopile_tw.csv')
 #recupera los valores de interes (texto)
     tw_text = dataset.iloc[:,2].values
-    long = 0
-    aux1 = []
     words=[]
     for word in tw_text:
-        aux = tokenizar(word)
-        aux1.append(len(aux))
-        long+=len(aux)
-        words.extend(aux)
+       aux = tokenizar(word)
+       words.extend(aux)
 
     w = Counter(words)
     top = sorted(w.items(),key=operator.itemgetter(1),reverse=True)
-
-    return long,round(np.mean(np.array(aux1))),top
+    return top,words
 
 def graf(target):
-    a,b,c=date_historial(target)
-#calculamos el top de palabras
+    c,wcloud=date_historial(target)
+# #calculamos el top de palabras
+
     words = []
     cnt = []
     for x in c[:10]:
@@ -108,25 +107,25 @@ def graf(target):
 
     plt.xticks(fontsize=10,fontproperties=prop,color=colores[1])
     plt.yticks(words,fontsize=15,fontproperties=prop,color=colores[1])
-    plt.text(cnt[0]*1.1,words[3],'Cuenta:\n @'+target,fontsize=25,fontproperties=prop,color=colores[1])
+    plt.text(cnt[0]*1.1,words[3],'Cuenta:\n@'+target+' ',fontsize=20,fontproperties=prop,color=colores[1])
     #plt.text(cnt[0]*1.2,words[7],'- '+str(a)+' Distintas\npalabras usadas\n',fontdict=text_sets)
     #plt.text(cnt[0]*1.1,words[8],'- Palabras\Tuit\npromedio: '+str(b),fontdict=text_sets)
-    plt.savefig('resultados/'+target+'_words.png',bbox_inches='tight',dpi=100)
+    plt.savefig('resultados/'+target+'/words.png',bbox_inches='tight',dpi=100)
     plt.close(fig)
 
     mss = ''
-    for x in c:
-        mss+=x[0]
+    for x in wcloud:
+        mss+=x
         mss=mss+' '
 
     fig = plt.figure(figsize=(7,7))   
     fig.patch.set_facecolor(colores[0])
     x, y = np.ogrid[:300, :300]
     mask = np.array(Image.open("app/test.png"))
-    wc = WordCloud(max_words=140, mask=mask,margin=0,repeat=True, min_font_size=5,contour_width=1, contour_color='white').generate(mss)
+    wc = WordCloud(max_words=50, mask=mask,margin=0,repeat=True, min_font_size=5,contour_width=1, contour_color='white').generate(mss)
     default_colors = wc.to_array()
     plt.axis("off")
     plt.title('WordCloud\npalabras más usadas\n@'+target,fontsize=25,fontdict=text_sets)
     plt.imshow(default_colors,interpolation='bilinear')
-    plt.savefig('resultados/'+target+'_wordcloud.png',bbox_inches='tight',dpi=100)
+    plt.savefig('resultados/'+target+'/wordcloud.png',bbox_inches='tight',dpi=100)
     plt.close(fig)
